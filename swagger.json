@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Storyfed Ready-to-Post Video Generator",
+    "title": "Ready-to-Post Video Generator - Storyfed",
     "description": "End-to-end long-form and short-form video generation API. Submit a prompt and optional parameters to receive a fully formatted, ready-to-post video with character consistency and captions. Generation takes 5-10 minutes. Progress updates and the final video are delivered via a webhook callback.",
     "version": "1.0.0"
   },
