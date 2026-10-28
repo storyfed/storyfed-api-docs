@@ -3,8 +3,8 @@
   "theme": "mint",
   "name": "Storyfed API",
   "logo": {
-    "light": "https://05583926cb7e28fbf9babfa546dfb052.cdn.bubble.io/cdn-cgi/image/f=auto,w=32,h=32,fit=cover,dpr=1/f1656793785960x295128935413803800/Storyfed-Logo.png",
-    "dark": "https://05583926cb7e28fbf9babfa546dfb052.cdn.bubble.io/cdn-cgi/image/f=auto,w=32,h=32,fit=cover,dpr=1/f1656793785960x295128935413803800/Storyfed-Logo.png",
+    "light": "https://05583926cb7e28fbf9babfa546dfb052.cdn.bubble.io/cdn-cgi/image/f=auto,w=64,h=64,fit=cover,dpr=1/f1656793785960x295128935413803800/Storyfed-Logo.png",
+    "dark": "https://05583926cb7e28fbf9babfa546dfb052.cdn.bubble.io/cdn-cgi/image/f=auto,w=64,h=64,fit=cover,dpr=1/f1656793785960x295128935413803800/Storyfed-Logo.png",
     "href": "https://storyfed.com"
   },
   "favicon": "https://05583926cb7e28fbf9babfa546dfb052.cdn.bubble.io/cdn-cgi/image/f=auto,w=32,h=32,fit=cover,dpr=1/f1656793785960x295128935413803800/Storyfed-Logo.png",
