@@ -1,15 +1,9 @@
 {
-  "name": "Storyfed",
-  "logo": {
-    "dark": "",
-    "light": ""
-  },
-  "theme": {
-    "colors": {
-      "primary": "#000000",
-      "light": "#ffffff",
-      "dark": "#000000"
-    }
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Storyfed API",
+  "colors": {
+    "primary": "#000000"
   },
   "navigation": {
     "tabs": [
