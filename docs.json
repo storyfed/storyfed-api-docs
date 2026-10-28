@@ -1,0 +1,22 @@
+{
+  "name": "Storyfed",
+  "logo": {
+    "dark": "",
+    "light": ""
+  },
+  "theme": {
+    "colors": {
+      "primary": "#000000",
+      "light": "#ffffff",
+      "dark": "#000000"
+    }
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "API Reference",
+        "openapi": "swagger.json"
+      }
+    ]
+  }
+}
