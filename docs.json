@@ -2,8 +2,16 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "Storyfed API",
+  "logo": {
+    "light": "https://05583926cb7e28fbf9babfa546dfb052.cdn.bubble.io/cdn-cgi/image/f=auto,w=32,h=32,fit=cover,dpr=1/f1656793785960x295128935413803800/Storyfed-Logo.png",
+    "dark": "https://05583926cb7e28fbf9babfa546dfb052.cdn.bubble.io/cdn-cgi/image/f=auto,w=32,h=32,fit=cover,dpr=1/f1656793785960x295128935413803800/Storyfed-Logo.png",
+    "href": "https://storyfed.com"
+  },
+  "favicon": "https://05583926cb7e28fbf9babfa546dfb052.cdn.bubble.io/cdn-cgi/image/f=auto,w=32,h=32,fit=cover,dpr=1/f1656793785960x295128935413803800/Storyfed-Logo.png",
   "colors": {
-    "primary": "#000000"
+    "primary": "#404040",
+    "light": "#37C8FF",
+    "dark": "#37C8FF"
   },
   "navigation": {
     "tabs": [
