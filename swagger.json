@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Ready-to-Post Video Generator - Storyfed",
+    "title": "Storyfed Ready-to-Post Video Generator",
     "description": "End-to-end long-form and short-form video generation API. Submit a prompt and optional parameters to receive a fully formatted, ready-to-post video with character consistency and captions. Generation takes 5-10 minutes. Progress updates and the final video are delivered via a webhook callback.",
     "version": "1.0.0"
   },
@@ -65,23 +65,19 @@
                   },
                   "channel": {
                     "type": "string",
-                    "description": "Storyfed id of the parent user channel to save the video.",
-                    "example": "1693118848391x463955092038504060"
+                    "description": "(Optional - Advanced) Storyfed id of the parent user channel to save the video."
                   },
                   "channel_series": {
                     "type": "string",
-                    "description": "Storyfed id of the parent user channel_series to save the video.",
-                    "example": "1693118848391x463955092038504060"
+                    "description": "(Optional - Advanced) Storyfed id of the parent user channel_series to save the video."
                   },
                   "template": {
                     "type": "string",
-                    "description": "Storyfed id of the video template.",
-                    "example": "1693118848391x463955092038504060"
+                    "description": "(Optional - Advanced) Storyfed id of the video template."
                   },
                   "narrator": {
                     "type": "string",
-                    "description": "Storyfed id of the narrator.",
-                    "example": "1693118848391x463955092038504060"
+                    "description": "(Optional - Advanced) Storyfed id of the narrator."
                   },
                   "attachments": {
                     "type": "array",
