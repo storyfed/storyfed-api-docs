@@ -14,8 +14,8 @@
   "paths": {
     "/storyfed-1": {
       "post": {
-        "summary": "Generate Video via Webhook",
-        "description": "Submits a prompt for video generation. The endpoint immediately returns a success status with a job_id, and subsequently posts updates and final assets to the provided webhook_url.",
+        "summary": "Generate Video",
+        "description": "Submits a prompt for video generation. The endpoint immediately returns a success status with a job_id, and subsequently posts updates and final assets to the provided webhook_url or via Check Video Status endpoint.",
         "operationId": "generateVideo",
         "security": [
           {
