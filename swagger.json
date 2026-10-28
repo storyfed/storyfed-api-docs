@@ -1,0 +1,237 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Ready-to-Post Video Generator - Storyfed",
+    "description": "End-to-end long-form and short-form video generation API. Submit a prompt and optional parameters to receive a fully formatted, ready-to-post video with character consistency and captions. Generation takes 5-10 minutes. Progress updates and the final video are delivered via a webhook callback.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.storyfed.com",
+      "description": "Production Server"
+    }
+  ],
+  "paths": {
+    "/storyfed-1": {
+      "post": {
+        "summary": "Generate Video via Webhook",
+        "description": "Submits a prompt for video generation. The endpoint immediately returns a success status with a job_id, and subsequently posts updates and final assets to the provided webhook_url.",
+        "operationId": "generateVideo",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "prompt": {
+                    "type": "string",
+                    "description": "The prompt or script for the video.",
+                    "example": "Make a video about good finance tips"
+                  },
+                  "quality_tier": {
+                    "type": "string",
+                    "description": "The desired rendering quality. Note: Currently, only 'Budget' is supported.",
+                    "enum": ["Budget"],
+                    "example": "Budget"
+                  },
+                  "webhook_url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "The URL where status updates and final result payloads will be sent.",
+                    "example": "https://webhook.site/123"
+                  },
+                  "ratio": {
+                    "type": "string",
+                    "description": "The aspect ratio of the generated video. Default is often 9:16.",
+                    "enum": ["9:16", "16:9", "1:1"],
+                    "example": "9:16"
+                  },
+                  "estimated_length": {
+                    "type": "integer",
+                    "description": "Estimated length in seconds. Maximum is 300.",
+                    "maximum": 300,
+                    "example": 60
+                  },
+                  "country": {
+                    "type": "string",
+                    "description": "Target country for the video context.",
+                    "example": "United States"
+                  },
+                  "channel": {
+                    "type": "string",
+                    "description": "Storyfed id of the parent user channel to save the video.",
+                    "example": "1693118848391x463955092038504060"
+                  },
+                  "channel_series": {
+                    "type": "string",
+                    "description": "Storyfed id of the parent user channel_series to save the video.",
+                    "example": "1693118848391x463955092038504060"
+                  },
+                  "template": {
+                    "type": "string",
+                    "description": "Storyfed id of the video template.",
+                    "example": "1693118848391x463955092038504060"
+                  },
+                  "narrator": {
+                    "type": "string",
+                    "description": "Storyfed id of the narrator.",
+                    "example": "1693118848391x463955092038504060"
+                  },
+                  "attachments": {
+                    "type": "array",
+                    "description": "List of attachment objects containing image URLs and metadata.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri",
+                          "pattern": "^.*\\.(jpg|jpeg|png|webp|gif)$",
+                          "description": "Must be a direct link to an image file (.jpg, .jpeg, .png, .webp).",
+                          "example": "https://example.com/image.jpg"
+                        },
+                        "main_use": {
+                          "type": "string",
+                          "description": "Primary use case for the image (e.g., stock, product).",
+                          "example": "product"
+                        },
+                        "description": {
+                          "type": "string",
+                          "description": "Brief description of the image context.",
+                          "example": "The main product shot"
+                        }
+                      }
+                    }
+                  }
+                },
+                "required": ["prompt", "quality_tier", "webhook_url"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success - Job Started",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "success" },
+                    "response": {
+                      "type": "object",
+                      "properties": {
+                        "status": { "type": "string", "example": "working" },
+                        "job_id": { "type": "string", "example": "1793139855684x541466892482409100" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameters, missing fields, or invalid API key.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string" },
+                    "message": { "type": "string" }
+                  }
+                },
+                "examples": {
+                  "missingFields": {
+                    "summary": "Missing required fields",
+                    "value": {
+                      "status": "error",
+                      "message": "Missing values: prompt, webhook_url"
+                    }
+                  },
+                  "invalidRatio": {
+                    "summary": "Invalid Ratio",
+                    "value": {
+                      "status": "error",
+                      "message": "Invalid Ratio, must be 9:16, 16:9 or 1:1"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Payment Required - Not enough credits.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "error" },
+                    "message": { "type": "string", "example": "Not enough credits, add credits to your wallet" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks": {
+          "onVideoUpdate": {
+            "{$request.body#/webhook_url}": {
+              "post": {
+                "summary": "Webhook Notification Payload",
+                "description": "The payload sent to the user's webhook_url with progress updates or the final rendered assets.",
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "status": { "type": "string", "example": "completed" },
+                          "stage": { "type": "string", "example": "finished" },
+                          "preview_url": { "type": "string", "format": "uri" },
+                          "result": {
+                            "type": "object",
+                            "properties": {
+                              "title": { "type": "string" },
+                              "description": { "type": "string" },
+                              "hashtags": { "type": "string" },
+                              "thumbnail": { "type": "string", "format": "uri" },
+                              "url": { "type": "string", "format": "uri" }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "Your server should return a 2xx status code to acknowledge receipt of the webhook."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key",
+        "description": "Your API Key, visit storyfed.com to generate one."
+      }
+    }
+  }
+}
