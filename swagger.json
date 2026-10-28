@@ -32,11 +32,11 @@
                   "prompt": {
                     "type": "string",
                     "description": "The prompt or script for the video.",
-                    "example": "Make a video about good finance tips"
+                    "example": "Make a video about 5 good healthy tips"
                   },
                   "quality_tier": {
                     "type": "string",
-                    "description": "The desired rendering quality. Note: Currently, only 'Budget' is supported.",
+                    "description": "The desired rendering quality. Note: Currently, only 'Budget' is supported in the API. This quaity is static images only, perfect for explainer videos, stories and news",
                     "enum": ["Budget"],
                     "example": "Budget"
                   },
@@ -48,14 +48,14 @@
                   },
                   "ratio": {
                     "type": "string",
-                    "description": "The aspect ratio of the generated video. Default is often 9:16.",
+                    "description": "The aspect ratio of the generated video. Default is 9:16",
                     "enum": ["9:16", "16:9", "1:1"],
                     "example": "9:16"
                   },
                   "estimated_length": {
                     "type": "integer",
-                    "description": "Estimated length in seconds. Maximum is 300.",
-                    "maximum": 300,
+                    "description": "Estimated length in seconds. Maximum is 180.",
+                    "maximum": 180,
                     "example": 60
                   },
                   "country": {
@@ -81,26 +81,26 @@
                   },
                   "attachments": {
                     "type": "array",
-                    "description": "List of attachment objects containing image URLs and metadata.",
+                    "description": "List of attachment objects containing image URLs and metadata. This images can be reference images or stock images to be used",
                     "items": {
                       "type": "object",
                       "properties": {
                         "url": {
                           "type": "string",
                           "format": "uri",
-                          "pattern": "^.*\\.(jpg|jpeg|png|webp|gif)$",
+                          "pattern": "^.*\\.(jpg|jpeg|png|webp)$",
                           "description": "Must be a direct link to an image file (.jpg, .jpeg, .png, .webp).",
                           "example": "https://example.com/image.jpg"
                         },
                         "main_use": {
                           "type": "string",
-                          "description": "Primary use case for the image (e.g., stock, product).",
-                          "example": "product"
+                          "description": "Primary use case for the image (e.g., stock, product, character)",
+                          "example": "character"
                         },
                         "description": {
                           "type": "string",
-                          "description": "Brief description of the image context.",
-                          "example": "The main product shot"
+                          "description": "Brief description of how to use the image.",
+                          "example": "This is the main character, please use this character in the entire video"
                         }
                       }
                     }
