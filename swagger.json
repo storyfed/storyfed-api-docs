@@ -114,7 +114,6 @@
                   "value": {
                     "prompt": "Make a video about 5 good healthy tips",
                     "quality_tier": "Budget",
-                    "webhook_url": "https://webhook.site/123",
                     "ratio": "9:16",
                     "estimated_length": 60
                   }
@@ -122,25 +121,24 @@
                 "withImages": {
                   "summary": "Generation with Attached Images",
                   "value": {
-                    "prompt": "Make a promotional video for my new coffee brand",
+                    "prompt": "Make a cute video about the attached cat",
                     "quality_tier": "Budget",
-                    "webhook_url": "https://webhook.site/123",
                     "ratio": "9:16",
                     "attachments": [
                       {
-                        "url": "https://example.com/coffee-bag.jpg",
-                        "main_use": "product",
-                        "description": "Show this coffee bag on the screen"
+                        "url": "https://storage.googleapis.com/storage_storyfed/stock_media/cat.jpg",
+                        "main_use": "character",
+                        "description": "Use this image as main character"
                       }
                     ]
                   }
                 },
                 "squareFormat": {
-                  "summary": "Square Format (Instagram/LinkedIn)",
+                  "summary": "Square Format",
                   "value": {
                     "prompt": "Make a news recap video about AI trends",
+                    "webhook_url": "add your webhook_url",
                     "quality_tier": "Budget",
-                    "webhook_url": "https://webhook.site/123",
                     "ratio": "1:1"
                   }
                 }
