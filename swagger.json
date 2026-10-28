@@ -106,44 +106,44 @@
                     }
                   }
                 },
-                "required": ["prompt", "quality_tier", "webhook_url"]
+                "required": ["prompt", "quality_tier"]
               },
               "examples": {
-               "standardRequest": {
-                 "summary": "Standard Generation",
-                 "value": {
-                   "prompt": "Make a video about 5 good healthy tips",
-                   "quality_tier": "Budget",
-                   "webhook_url": "https://webhook.site/123",
-                   "ratio": "9:16",
-                   "estimated_length": 60
-                 }
-               },
-               "withImages": {
-                 "summary": "Generation with Attached Images",
-                 "value": {
-                   "prompt": "Make a promotional video for my new coffee brand",
-                   "quality_tier": "Budget",
-                   "webhook_url": "https://webhook.site/123",
-                   "ratio": "9:16",
-                   "attachments": [
-                     {
-                       "url": "https://example.com/coffee-bag.jpg",
-                       "main_use": "product",
-                       "description": "Show this coffee bag on the screen"
-                     }
-                   ]
-                 }
-               },
-               "squareFormat": {
-                 "summary": "Square Format (Instagram/LinkedIn)",
-                 "value": {
-                   "prompt": "Make a news recap video about AI trends",
-                   "quality_tier": "Budget",
-                   "webhook_url": "https://webhook.site/123",
-                   "ratio": "1:1"
-                 }
-               }
+                "standardRequest": {
+                  "summary": "Standard Generation",
+                  "value": {
+                    "prompt": "Make a video about 5 good healthy tips",
+                    "quality_tier": "Budget",
+                    "webhook_url": "https://webhook.site/123",
+                    "ratio": "9:16",
+                    "estimated_length": 60
+                  }
+                },
+                "withImages": {
+                  "summary": "Generation with Attached Images",
+                  "value": {
+                    "prompt": "Make a promotional video for my new coffee brand",
+                    "quality_tier": "Budget",
+                    "webhook_url": "https://webhook.site/123",
+                    "ratio": "9:16",
+                    "attachments": [
+                      {
+                        "url": "https://example.com/coffee-bag.jpg",
+                        "main_use": "product",
+                        "description": "Show this coffee bag on the screen"
+                      }
+                    ]
+                  }
+                },
+                "squareFormat": {
+                  "summary": "Square Format (Instagram/LinkedIn)",
+                  "value": {
+                    "prompt": "Make a news recap video about AI trends",
+                    "quality_tier": "Budget",
+                    "webhook_url": "https://webhook.site/123",
+                    "ratio": "1:1"
+                  }
+                }
               }
             }
           }
@@ -185,7 +185,7 @@
                     "summary": "Missing required fields",
                     "value": {
                       "status": "error",
-                      "message": "Missing values: prompt, webhook_url"
+                      "message": "Missing values: prompt"
                     }
                   },
                   "invalidRatio": {
@@ -227,8 +227,8 @@
                       "schema": {
                         "type": "object",
                         "properties": {
-                          "status": { "type": "string", "example": "completed" },
-                          "stage": { "type": "string", "example": "finished" },
+                          "status": { "type": "string", "example": "finished" },
+                          "stage": { "type": "string", "example": "" },
                           "preview_url": { "type": "string", "format": "uri" },
                           "result": {
                             "type": "object",
@@ -248,6 +248,56 @@
                 "responses": {
                   "200": {
                     "description": "Your server should return a 2xx status code to acknowledge receipt of the webhook."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/storyfed-1/status/{job_id}": {
+      "get": {
+        "summary": "Check Video Status",
+        "description": "Poll this endpoint using the job_id to get the current status of the video generation.",
+        "operationId": "checkVideoStatus",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The job_id returned by the generation endpoint."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Current status of the job. When status is 'completed', the result object will contain the final video assets.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "completed" },
+                    "stage": { "type": "string", "example": "finished" },
+                    "preview_url": { "type": "string", "format": "uri", "example": "https://storyfed.com/?script=1793197444550x303104625290286300" },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "title": { "type": "string", "example": "5 Simple Healthy Tips You Can Start Today" },
+                        "description": { "type": "string", "example": "Five practical everyday wellness tips: add produce, choose whole grains and beans, move regularly, swap sugary drinks for water, and build a steady sleep routine." },
+                        "hashtags": { "type": "string", "example": "#HealthyHabits, #WellnessTips, #HealthyEating, #Nutrition, #DailyMovement, #SleepHealth, #DrinkWater, #WholeFoods, #Lifestyle, #Health" },
+                        "thumbnail": { "type": "string", "format": "uri", "example": "https://storage.googleapis.com/stories-bolivia-storyfed/video_stock/zdwj9j9rvhrmy0d1gbmsb2c90m" },
+                        "url": { "type": "string", "format": "uri", "example": "https://storage.googleapis.com/storage_storyfed/rendered/video-1793197913520.mp4" }
+                      }
+                    }
                   }
                 }
               }
