@@ -227,8 +227,8 @@
                       "schema": {
                         "type": "object",
                         "properties": {
-                          "status": { "type": "string", "example": "finished" },
-                          "stage": { "type": "string", "example": "" },
+                          "status": { "type": "string", "example": "completed" },
+                          "stage": { "type": "string", "example": "finished" },
                           "preview_url": { "type": "string", "format": "uri" },
                           "result": {
                             "type": "object",
