@@ -1,0 +1,63 @@
+---
+title: 'Quickstart'
+description: 'Generate your first video using the Storyfed API in under 5 minutes.'
+---
+
+This guide walks you through generating a video using a standard `curl` request and receiving the final MP4 file via a webhook.
+
+<Steps>
+  <Step title="Get Your API Key">
+    Log into your [Storyfed account](https://storyfed.com), navigate to **Profile > API Keys**, and generate a new key. You will need this to authenticate your requests.
+  </Step>
+
+  <Step title="Submit a Video Generation Request">
+    Use the `/storyfed-1` endpoint to submit your prompt. In this example, we include a `webhook_url` so Storyfed can notify us when the 5-10 minute rendering process is complete.
+
+    ```bash
+    curl -X POST "[https://api.storyfed.com/storyfed-1](https://api.storyfed.com/storyfed-1)" \
+      -H "X-API-Key: YOUR_API_KEY_HERE" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "prompt": "Make a short video about 3 benefits of drinking water every morning",
+        "quality_tier": "Budget",
+        "ratio": "9:16",
+        "estimated_length": 60,
+        "webhook_url": "[https://your-server.com/webhook](https://your-server.com/webhook)"
+      }'
+    ```
+
+    **Expected Response:**
+    The API immediately acknowledges your request and provides a `job_id` so you can track it.
+    ```json
+    {
+      "status": "success",
+      "response": {
+        "status": "working",
+        "job_id": "1793139855684x541466892482409100"
+      }
+    }
+    ```
+  </Step>
+
+  <Step title="Receive the Final Video">
+    Once the video finishes generating, Storyfed will send a `POST` request to the `webhook_url` you provided. The payload contains the final MP4 URL, thumbnail, and social-ready metadata.
+
+    **Webhook Payload:**
+    ```json
+    {
+      "status": "completed",
+      "stage": "finished",
+      "preview_url": "[https://storyfed.com/?script=1793197444550](https://storyfed.com/?script=1793197444550)...",
+      "result": {
+        "title": "3 Benefits of Morning Hydration",
+        "description": "Start your day right! Drinking water every morning boosts your metabolism, flushes out toxins, and fuels your brain for the day ahead.",
+        "hashtags": "#Hydration #MorningRoutine #HealthyHabits #Wellness #Water",
+        "thumbnail": "[https://storage.googleapis.com/stories-bolivia-storyfed/video_stock/example-thumbnail.jpg](https://storage.googleapis.com/stories-bolivia-storyfed/video_stock/example-thumbnail.jpg)",
+        "url": "[https://storage.googleapis.com/storage_storyfed/rendered/video-1793197913520.mp4](https://storage.googleapis.com/storage_storyfed/rendered/video-1793197913520.mp4)"
+      }
+    }
+    ```
+    
+    *Note: Your server should return a `200` or `2xx` HTTP status code to acknowledge receipt of this webhook.*
+  </Step>
+</Steps>
