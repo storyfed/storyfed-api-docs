@@ -18,7 +18,8 @@
       {
         "tab": "Getting Started",
         "pages": [
-          "introduction"
+          "introduction",
+          "quickstart"
         ]
       },
       {
