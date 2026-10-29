@@ -16,6 +16,12 @@
   "navigation": {
     "tabs": [
       {
+        "tab": "Getting Started",
+        "pages": [
+          "introduction"
+        ]
+      },
+      {
         "tab": "API Reference",
         "openapi": "swagger.json"
       }
