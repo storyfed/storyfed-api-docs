@@ -4,13 +4,39 @@ description: 'Welcome to the Storyfed API documentation.'
 ---
 
 ## Overview
-Storyfed is an end-to-end video generation API. Submit a prompt and optional parameters to receive a fully formatted, ready-to-post video with character consistency and captions.
 
-## How Authentication Works
+Storyfed is an end-to-end long-form and short-form video generation API. By submitting a simple text prompt and optional parameters, you receive a fully formatted, ready-to-post video complete with character consistency and captions. 
+
+Because video generation is resource-intensive, the API operates asynchronously. Generation typically takes **5 to 10 minutes**.
+
+## Key Capabilities
+
+- **Flexible Aspect Ratios:** Generate content for any platform by specifying `9:16` (Shorts/Reels), `16:9` (YouTube), or `1:1` (Square/News recaps).
+- **Character Consistency:** Pass reference images via the `attachments` array to maintain a consistent main character or use specific stock assets throughout your video.
+- **Controlled Length:** Set an `estimated_length` up to 180 seconds.
+- **Budget Tier Rendering:** Our current `Budget` quality tier utilizes high-quality static images combined with dynamic captions and narration—perfect for explainer videos, news roundups, and social stories.
+
+## How the Workflow Operates
+
+Since rendering takes time, the API uses a "Job" based system:
+
+1. **Submit a Prompt:** You send a `POST` request to `/storyfed-1` with your prompt, aspect ratio, and quality tier. 
+2. **Receive a Job ID:** The API immediately responds with a `200 Success` and a unique `job_id`.
+3. **Get the Video:** You can retrieve your final MP4 video in one of two ways:
+   - **Webhooks (Recommended):** Provide a `webhook_url` in your initial request. Storyfed will automatically push the final payload (including the video URL, thumbnail, and hashtags) to your server when rendering is complete.
+   - **Polling:** Periodically send a `GET` request to `/storyfed-1/status/{job_id}` to check the status. Once the status hits `completed`, the response will contain your final assets.
+
+## Authentication
+
 To use the API or the Make.com Custom App, you must secure an API Key from our portal.
 
-Simply login or create an account, head to profile > API Keys > Create Key
+1. Login or create an account at Storyfed.com.
+2. Navigate to **Profile > API Keys > Create Key**.
+3. Include this key in the header of all your API requests as `X-API-Key`.
+
+*Note: Video generation consumes credits. If your wallet is empty, the API will return a `402 Payment Required` error.*
 
 ## No-Code Integrations
-* **Make.com:** You can use our official Make.com app to visually drag and drop prompts into the Storyfed video generator.
-* **Webhooks:** Our API natively supports webhooks. Simply pass a `webhook_url` in your POST request, and we will push the final MP4 URL to you when rendering is complete.
+
+- **Make.com:** You can use our official Make.com app to visually drag and drop prompts into the Storyfed video generator without writing a single line of code.
+- **Native Webhooks:** Integrate with platforms like Zapier or your own custom backend by simply passing a webhook URL in your generation payload. We'll send the final video link right to your workflow.
