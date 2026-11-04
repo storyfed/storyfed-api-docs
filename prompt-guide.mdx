@@ -1,0 +1,76 @@
+---
+title: 'Prompt Guide'
+description: 'Learn how to structure your prompts to get the best possible results from the Storyfed video generator.'
+---
+
+## Overview
+
+Storyfed processes videos sequentially by dividing them into individual **scenes**. A well-structured prompt provides both global instructions (affecting the entire video) and detailed, scene-by-scene directions. 
+
+Writing clear, structured prompts ensures the AI accurately captures your creative vision, pacing, and visual style.
+
+## Global Instructions
+
+At the beginning of your prompt, you can define the overarching elements that apply to the entire video:
+
+* **Visual Style:** Define the overall look (e.g., "3D Pixar style", "Cinematic dark fantasy", "Flat vector illustration"). You can also reinforce this by passing visual reference URLs in the `attachments` array of your API request.
+* **Music Instructions:** Specify the mood or genre of the background track (e.g., "Upbeat lo-fi hip hop", "Tense cinematic strings").
+* **Captions Style:** Detail how you want the subtitles to look (e.g., "Bold yellow text with black outlines, bouncing animation", "Minimalist white text at the bottom").
+* **Visual References:** You can instruct the AI to use specific images attached in your API payload as character references or global style guides.
+
+## Scene-by-Scene Breakdown
+
+For the main content, break your script down into individual scenes. For each scene, you can specify the following parameters:
+
+* **Type:** The media format for the scene (`image`, `video`, `narrator`, or `motion_graphics`).
+* **Visual Instructions:** A detailed description of what is happening on screen.
+* **On-Screen Text:** Text to display over the video. You can specify size, positioning (e.g., "Centered vertically and horizontally"), and animations.
+* **On-Screen Floating Media:** Instructions for picture-in-picture elements, stickers, or overlays.
+* **Transcript / Voiceover:** The exact words the AI voice should speak during this scene.
+* **Length:** The estimated duration of the scene in seconds.
+
+## Quality Tier Limitations
+
+When specifying the `type` for your scenes, keep your requested **Quality Tier** in mind. Storyfed supports three tiers with different capabilities:
+
+| Quality Tier | Supported Scene Types | Description |
+| :--- | :--- | :--- |
+| **Budget** | `image`, `motion_graphics` | Perfect for explainer videos, news recaps, and stories using high-quality static assets and motion graphics. |
+| **Standard** | `image`, `video`, `narrator`, `motion_graphics` | Unlocks dynamic video generation and AI narrator avatars. |
+| **Pro** | `image`, `video`, `narrator`, `motion_graphics` | Highest fidelity rendering across all available media types. |
+
+<Note>
+If you submit a prompt requesting `video` or `narrator` scenes while using the **Budget** tier, the API will automatically downgrade those scenes to static images or motion graphics.
+</Note>
+
+---
+
+## Example: Budget Tier Prompt
+
+Here is a great example of a well-structured prompt designed for the **Budget** quality tier. It clearly separates the scenes, specifies the visual layout, and dictates the on-screen text and voiceover.
+
+```text
+[Global Instructions]
+Style: Vibrant, highly detailed 2D digital art.
+Captions: Dynamic bold white text with black drop shadow.
+Music: Upbeat, curious electronic ambient.
+
+[Topic: Unbelievable Life Facts]
+
+[Scene 1]
+Type: image
+Visual: A striking static illustration of a person reacting to a smartphone screen.
+On-Screen Text centered vertically and horizontally: "Things you didn't know 10 seconds ago"
+Voiceover: "Here is a fact that sounds completely fake, but is 100 percent real."
+
+[Scene 2]
+Type: motion_graphics
+Visual: Motion graphics animation that shows a brain and a light bulb side by side. Comparing how both use the same electricity.
+On-Screen Text: "Your brain uses about 20 watts"
+Voiceover: "Your brain uses roughly 20 watts of energy—about the power a small bulb draws. But it doesn't produce electricity you can use to light one."
+
+[Scene 3]
+Type: image
+Visual: A static close-up illustration of a blinking eye, with a comment prompt overlay.
+On-Screen Text: "Did you know this?"
+Voiceover: "Comment if you already knew this, and follow for more surprising facts!"
