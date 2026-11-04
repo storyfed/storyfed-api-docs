@@ -31,12 +31,12 @@
                 "properties": {
                   "prompt": {
                     "type": "string",
-                    "description": "The prompt or script for the video.",
-                    "example": "Make a video about 5 good healthy tips"
+                    "description": "The detailed prompt or script for the video. For optimal AI generation, structure this with [Global Instructions] (style, music, captions, visual references) followed by sequential [Scene] blocks. Each scene can specify: Type (image, video, narrator, motion_graphics), Visual instructions, On-Screen Text (with positioning/animation), On-Screen Floating Media, Voiceover/Transcript, and Length.",
+                    "example": "[Global Instructions]\nStyle: Vibrant 2D digital art.\nCaptions: Bold yellow.\n\n[Scene 1]\nType: image\nVisual: A person reacting to a phone.\nOn-Screen Text: 'Things you didn't know'\nVoiceover: 'Here is a fact that sounds fake.'"
                   },
                   "quality_tier": {
                     "type": "string",
-                    "description": "The desired rendering quality. Note: Currently, only 'Budget' is supported in the API. This quality is static images only, perfect for explainer videos, stories and news",
+                    "description": "The desired rendering quality. Note: Currently, only 'Budget' is supported in the API. The Budget tier strictly supports 'image' and 'motion_graphics' scene types. Standard and Pro tiers unlock dynamic 'video' and AI 'narrator' scene types.",
                     "enum": ["Budget"],
                     "example": "Budget"
                   },
@@ -81,7 +81,7 @@
                   },
                   "attachments": {
                     "type": "array",
-                    "description": "List of attachment objects containing image URLs and metadata. This images can be reference images or stock images to be used",
+                    "description": "List of attachment objects containing image URLs and metadata. Use this to pass visual references to maintain character consistency, define global visual styles, or provide specific stock images to be used in the video scenes.",
                     "items": {
                       "type": "object",
                       "properties": {
@@ -94,12 +94,12 @@
                         },
                         "main_use": {
                           "type": "string",
-                          "description": "Primary use case for the image (e.g., stock, product, character)",
+                          "description": "Primary use case for the image (e.g., stock, product, character, style_reference)",
                           "example": "character"
                         },
                         "description": {
                           "type": "string",
-                          "description": "Brief description of how to use the image.",
+                          "description": "Brief description instructing the AI on how to use the attached image.",
                           "example": "This is the main character, please use this character in the entire video"
                         }
                       }
