@@ -31,12 +31,12 @@
                 "properties": {
                   "prompt": {
                     "type": "string",
-                    "description": "The detailed prompt or script for the video. For optimal AI generation, structure this with [Global Instructions] (style, music, captions, visual references) followed by sequential [Scene] blocks. Each scene can specify: Type (image, video, narrator, motion_graphics), Visual instructions, On-Screen Text (with positioning/animation), On-Screen Floating Media, Voiceover/Transcript, and Length.",
-                    "example": "[Global Instructions]\nStyle: Vibrant 2D digital art.\nCaptions: Bold yellow.\n\n[Scene 1]\nType: image\nVisual: A person reacting to a phone.\nOn-Screen Text: 'Things you didn't know'\nVoiceover: 'Here is a fact that sounds fake.'"
+                    "description": "The detailed prompt or script for the video.",
+                    "example": "Make a video about 5 good healthy tips"
                   },
                   "quality_tier": {
                     "type": "string",
-                    "description": "The desired rendering quality. Note: Currently, only 'Budget' is supported in the API. The Budget tier strictly supports 'image' and 'motion_graphics' scene types. Standard and Pro tiers unlock dynamic 'video' and AI 'narrator' scene types.",
+                    "description": "The desired rendering quality. Note: Currently, only 'Budget' is supported in the API. The Budget tier strictly supports 'image' and 'motion_graphics' scene types. Perfect for explainer videos, stories and news",
                     "enum": ["Budget"],
                     "example": "Budget"
                   },
