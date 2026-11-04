@@ -19,7 +19,8 @@
         "tab": "Getting Started",
         "pages": [
           "introduction",
-          "quickstart"
+          "quickstart",
+          "prompt-guide"
         ]
       },
       {
